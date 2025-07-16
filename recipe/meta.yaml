@@ -18,6 +18,8 @@ requirements:
   host:
     - python
     - pip
+    - wheel
+    - setuptools
   run:
     - python
     - streamlit >=0.63
