@@ -1,0 +1,48 @@
+{% set name = "streamlit-quill" %}
+{% set version = "0.0.3" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/okld/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 1f4bbcd2be108db409312e23395ff5b4f5f08a522ceb1236cabc4d64e7d7e848
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<36]
+
+requirements:
+  host:
+    - python
+    - pip
+    - wheel
+    - setuptools
+  run:
+    - python
+    - streamlit >=0.63
+
+test:
+  imports:
+    - streamlit_quill
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+  requires:
+    - pip
+
+about:
+  home: https://github.com/Ghasel/streamlit-quill
+  summary: Quill editor component for Streamlit.
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  description: React Quill component for Streamlit.
+  dev_url: https://github.com/okld/streamlit-quill/
+  doc_url: https://github.com/okld/streamlit-quill/blob/main/README.md
+
+extra:
+  recipe-maintainers:
+    - snegireff
